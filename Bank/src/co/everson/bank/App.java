@@ -3,33 +3,35 @@ package co.everson.bank;
 public class App {
 
     public static void main(String[] args) {
-        //criar uma conta (agencia, conta, nome)
-        //limitar o nome = 12 caracters
-        Account account = new Account("001", "1234", "Dr Japa");
+ 	  Account account = new Account("001", "1234", "Dr Japa");
 
-        //sacar valores
-        //nao pode sacar mais do que tem
-        boolean suceed = account.withDraw(200.00);
-        if(!suceed){
-            System.out.println("Você não tem saldo suficiente para sacar!");
-        }
+        Scanner scanner = new Scanner(System.in);
 
-        //  depositar
-        account.deposit(100);
-        account.deposit(50);
-        account.deposit(100);
+       while (true){
+           System.out.println("D - Deposito; S - Sacar; E - Sair ");
+           String operacao = scanner.nextLine();
 
-        if (!account.withDraw(200)){
-            System.out.println("Você não tem saldo suficiente para sacar!");
-        }
+           if (operacao.equals("D")) {
+               System.out.println("Qual o valor do depósito?");
+               double value = scanner.nextDouble();
+               account.deposit(value);
+           } else if (operacao.equals("S")) {
+               System.out.println("Qual o valor do saque?");
+               double value = scanner.nextDouble();
+               if (!account.withDraw(value)) {
+                   System.out.println("Saldo indisponível!");
+               }
+           } else if (operacao.equals("E")) {
+               break;
+           }
+           else {
+               System.out.println("Comando inválido, tente novamente!");
+           }
 
-        if (!account.withDraw(200)){
-            System.out.println("Você não tem saldo suficiente para sacar!");
-        }
+           scanner = new Scanner(System.in);
+       }
 
 
-        // informar para o usuario as operaçoes (saque, deposito)
-        System.out.println(account);
 
 
     }
